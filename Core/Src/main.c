@@ -71,7 +71,7 @@ int main(void)
 
   /* MPU Configuration--------------------------------------------------------*/
   MPU_Config();
-//hello
+
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -98,6 +98,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,SET);
+    HAL_Delay(500);
+    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,SET);
+    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,RESET);
+    HAL_Delay(500);
+    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,RESET);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
