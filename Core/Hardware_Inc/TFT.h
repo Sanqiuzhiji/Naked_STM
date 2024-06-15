@@ -33,52 +33,8 @@ extern uint16_t  BACK_COLOR; //背景颜色.默认为白色
 //-----------------LCD端口定义---------------- 
 //暂无
 
-#define BITBAND(addr, bitnum) ((addr & 0xF0000000) + 0x2000000 + ((addr & 0xFFFFF) << 5) + (bitnum << 2))
-#define MEM_ADDR(addr) *((volatile unsigned long *)(addr))
-#define BIT_ADDR(addr, bitnum) MEM_ADDR(BITBAND(addr, bitnum))
-
-// STM32H750 GPIO 基地址（根据具体芯片手册确认）
-#define GPIOA_ODR_Addr (GPIOA_BASE + 0x14)
-#define GPIOB_ODR_Addr (GPIOB_BASE + 0x14)
-#define GPIOC_ODR_Addr (GPIOC_BASE + 0x14)
-#define GPIOD_ODR_Addr (GPIOD_BASE + 0x14)
-#define GPIOE_ODR_Addr (GPIOE_BASE + 0x14)
-#define GPIOF_ODR_Addr (GPIOF_BASE + 0x14)
-#define GPIOG_ODR_Addr (GPIOG_BASE + 0x14)
-
-// 输入数据寄存器地址（根据具体芯片手册确认）
-#define GPIOA_IDR_Addr (GPIOA_BASE + 0x10)
-#define GPIOB_IDR_Addr (GPIOB_BASE + 0x10)
-#define GPIOC_IDR_Addr (GPIOC_BASE + 0x10)
-#define GPIOD_IDR_Addr (GPIOD_BASE + 0x10)
-#define GPIOE_IDR_Addr (GPIOE_BASE + 0x10)
-#define GPIOF_IDR_Addr (GPIOF_BASE + 0x10)
-#define GPIOG_IDR_Addr (GPIOG_BASE + 0x10)
-
-// 确保 n 的值小于 16
-#define PAout(n) BIT_ADDR(GPIOA_ODR_Addr, n)  // 输出
-#define PAin(n)  BIT_ADDR(GPIOA_IDR_Addr, n)  // 输入
-
-#define PBout(n) BIT_ADDR(GPIOB_ODR_Addr, n)  // 输出
-#define PBin(n)  BIT_ADDR(GPIOB_IDR_Addr, n)  // 输入
-
-#define PCout(n) BIT_ADDR(GPIOC_ODR_Addr, n)  // 输出
-#define PCin(n)  BIT_ADDR(GPIOC_IDR_Addr, n)  // 输入
-
-#define PDout(n) BIT_ADDR(GPIOD_ODR_Addr, n)  // 输出
-#define PDin(n)  BIT_ADDR(GPIOD_IDR_Addr, n)  // 输入
-
-#define PEout(n) BIT_ADDR(GPIOE_ODR_Addr, n)  // 输出
-#define PEin(n)  BIT_ADDR(GPIOE_IDR_Addr, n)  // 输入
-
-#define PFout(n) BIT_ADDR(GPIOF_ODR_Addr, n)  // 输出
-#define PFin(n)  BIT_ADDR(GPIOF_IDR_Addr, n)  // 输入
-
-#define PGout(n) BIT_ADDR(GPIOG_ODR_Addr, n)  // 输出
-#define PGin(n)  BIT_ADDR(GPIOG_IDR_Addr, n)  // 输入
-
 //QDtech全系列模块采用了三极管控制背光亮灭，用户也可以接PWM调节背光亮度
-#define	LCD_LED PBout(LED) //LCD背光    		 PB9
+#define	LCD_LED(bitnum) HAL_GPIO_WritePin(TFT_LED_GPIO_Port,TFT_LED_Pin,(GPIO_PinState)bitnum) //LCD背光    		 PB9
 //如果使用官方库函数定义下列底层，速度将会下降到14帧每秒，建议采用我司推荐方法
 //以下IO定义直接操作寄存器，快速IO操作，刷屏速率可以达到28帧每秒！ 
 
