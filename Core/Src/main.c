@@ -100,12 +100,14 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,SET);
-    HAL_Delay(500);
-    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,SET);
-    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,RESET);
-    HAL_Delay(500);
-    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,RESET);
+    // HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
+    // PAout(15)=1;
+    HAL_Delay(200);
+    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,GPIO_PIN_SET);
+    // HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
+    // PAout(15)=0;
+    HAL_Delay(200);
+    HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,GPIO_PIN_RESET);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

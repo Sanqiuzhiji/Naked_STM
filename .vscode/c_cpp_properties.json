@@ -8,7 +8,8 @@
                 "Drivers/STM32H7xx_HAL_Driver/Inc",
                 "Drivers/STM32H7xx_HAL_Driver/Inc/Legacy",
                 "Drivers/CMSIS/Device/ST/STM32H7xx/Include",
-                "Drivers/CMSIS/Include"
+                "Drivers/CMSIS/Include",
+                "Core/Hardware_Inc"
             ],
             "defines": [
                 "_DEBUG",
