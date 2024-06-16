@@ -2,6 +2,7 @@
     "files.associations": {
         "tft.h": "c",
         "main.h": "c",
-        "tft_test.h": "c"
+        "tft_test.h": "c",
+        "tft_gui.h": "c"
     }
 }
