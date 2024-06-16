@@ -1,4 +1,4 @@
 /Drivers
-/MDK-ARM
-！/MDK-ARM/Hardware_Inc
-！/MDK-ARM\Hardware_Src
+/MDK-ARM/*
+!/MDK-ARM/Hardware_Inc
+!/MDK-ARM/Hardware_Src
