@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "tft.h": "c"
+        "tft.h": "c",
+        "main.h": "c"
     }
 }
