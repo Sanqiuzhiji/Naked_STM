@@ -33,6 +33,8 @@ extern "C" {
 /* USER CODE BEGIN Includes */
 #include "stdlib.h"
 #include "TFT.h"
+#include "TFT_GUI.h"
+#include "TFT_Test.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

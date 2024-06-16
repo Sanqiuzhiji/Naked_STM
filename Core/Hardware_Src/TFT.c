@@ -1,5 +1,6 @@
 #include "TFT.h"
 
+extern SPI_HandleTypeDef hspi1;
 _lcd_dev lcddev;
 
 uint16_t POINT_COLOR = 0x0000,BACK_COLOR = 0xFFFF;  
@@ -15,7 +16,7 @@ uint16_t DeviceCode;
 void LCD_GPIOInit(void)
 {
     /*
-        å¼•è„šåˆå§‹åŒ–,è¾“å‡ºæ¨¡å¼
+        Òı½Å³õÊ¼»¯,Êä³öÄ£Ê½
         TFT_LED_Pin
         TFT_DC_Pin
         TFT_Reset_Pin
@@ -37,8 +38,8 @@ void LCD_RESET(void)
 	HAL_Delay(50);
 }
 
-//SPI1å†™è¯»å‡½æ•°
-uint8_t SPI_WriteByte(uint8_t TxData)//å‘é€ä¸€ä¸ªå­—èŠ‚ï¼Œå¹¶ä»å¯„å­˜å™¨è¿”å›ä¸€ä¸ªå­—èŠ‚
+//SPI1Ğ´¶Áº¯Êı
+uint8_t SPI_WriteByte(uint8_t TxData)//·¢ËÍÒ»¸ö×Ö½Ú£¬²¢´Ó¼Ä´æÆ÷·µ»ØÒ»¸ö×Ö½Ú
 {
 	uint8_t Rxdata;
 	HAL_SPI_TransmitReceive(& hspi1, &TxData, &Rxdata, 1, 1000);       
@@ -233,28 +234,6 @@ void LCD_Clear(uint16_t Color)
     LCD_CS_SET;
 } 
 
-/*****************************************************************************
- * @name       :void LCD_RESET(void)
- * @date       :2018-08-09 
- * @function   :Reset LCD screen
- * @parameters :None
- * @retvalue   :None
-******************************************************************************/	
-void LCD_RESET(void)
-{
-	LCD_RST_CLR;
-	HAL_Delay(100);	
-	LCD_RST_SET;
-	HAL_Delay(50);
-}
-
-/*****************************************************************************
- * @name       :void LCD_RESET(void)
- * @date       :2018-08-09 
- * @function   :Initialization LCD screen
- * @parameters :None
- * @retvalue   :None
-******************************************************************************/	 	 
 void LCD_Init(void)
 {  
     // SPI2_Init(); 
