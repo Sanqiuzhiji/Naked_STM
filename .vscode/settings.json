@@ -5,6 +5,7 @@
         "tft_test.h": "c",
         "tft_gui.h": "c",
         "touch.h": "c",
-        "stm32h7xx_hal.h": "c"
+        "stm32h7xx_hal.h": "c",
+        "test.h": "c"
     }
 }

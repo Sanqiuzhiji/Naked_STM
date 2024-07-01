@@ -55,7 +55,7 @@
 #include "lcd.h"
 #include "gui.h"
 #include "test.h"
-
+#include "usart.h"
 //========================variable==========================//
 uint16_t ColorTab[5]={RED,GREEN,BLUE,YELLOW,BRED};//定义颜色数组
 //=====================end of variable======================//
