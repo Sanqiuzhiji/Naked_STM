@@ -90,10 +90,15 @@ Gui_StrCenter(0,lcddev.height-18,WHITE,BLUE,"http://www.lcdwiki.com",16,1);//¾ÓÖ
 ******************************************************************************/
 void main_test(void)
 {
-	DrawTestPage("È«¶¯µç×Ó×ÛºÏ²âÊÔ³ÌĞò");	
+	Serial_Printf("I am here b\r\n");
+	// DrawTestPage("È«¶¯µç×Ó×ÛºÏ²âÊÔ³ÌĞò");
+	Serial_Printf("I am here d\r\n");	
 	Gui_StrCenter(0,30,RED,BLUE,"È«¶¯µç×Ó",16,1);//¾ÓÖĞÏÔÊ¾
-	Gui_StrCenter(0,60,RED,BLUE,"×ÛºÏ²âÊÔ³ÌĞò",16,1);//¾ÓÖĞÏÔÊ¾	
+	Serial_Printf("I am here e\r\n");
+	Gui_StrCenter(0,60,RED,BLUE,"×ÛºÏ²âÊÔ³ÌĞò",16,1);//¾ÓÖĞÏÔÊ¾
+	Serial_Printf("I am here f\r\n");	
 	Gui_StrCenter(0,90,GREEN,BLUE,"2.8\" ILI9341 240X320",16,1);//¾ÓÖĞÏÔÊ¾
+	Serial_Printf("I am here g\r\n");
 	Gui_StrCenter(0,120,BLUE,BLUE,"xiaoFeng@QDtech 2018-08-20",16,1);//¾ÓÖĞÏÔÊ¾
 	HAL_Delay(1500);		
 	HAL_Delay(1500);

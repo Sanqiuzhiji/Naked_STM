@@ -141,29 +141,40 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-/**
-  * 函数功能: 重定向c库函数printf到DEBUG_USARTx
-  * 输入参数: 无
-  * 返 回 值: 无
-  * 说    明：无
-  */
+
+void Serial_SendByte(uint8_t Byte)
+{
+  HAL_UART_Transmit(&huart1, &Byte, sizeof(Byte), HAL_MAX_DELAY);
+}
+
+void Serial_SendArray(uint8_t *Array)
+{
+  HAL_UART_Transmit(&huart1,Array, sizeof(Array), HAL_MAX_DELAY);
+}
+
+void Serial_SendString(char *String)
+{
+	uint8_t i;
+	for (i = 0; String[i] != '\0'; i ++)
+	{
+		Serial_SendByte(String[i]);
+	}
+}
+
 int fputc(int ch, FILE *f)
 {
-  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xffff);
-  return ch;
+	Serial_SendByte(ch);
+	return ch;
 }
- 
-/**
-  * 函数功能: 重定向c库函数getchar,scanf到DEBUG_USARTx
-  * 输入参数: 无
-  * 返 回 值: 无
-  * 说    明：无
-  */
-int fgetc(FILE *f)
+
+void Serial_Printf(char *format, ...)
 {
-  uint8_t ch = 0;
-  HAL_UART_Receive(&huart1, &ch, 1, 0xffff);
-  return ch;
+	char String[100];
+	va_list arg;
+	va_start(arg, format);
+	vsprintf(String, format, arg);
+	va_end(arg);
+	Serial_SendString(String);
 }
 
 /* USER CODE END 1 */

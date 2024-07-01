@@ -28,7 +28,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stdio.h"
-
+#include "stdarg.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -42,6 +42,11 @@ extern UART_HandleTypeDef huart1;
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
+void Serial_SendByte(uint8_t Byte);
+void Serial_SendArray(uint8_t *Array);
+void Serial_SendString(char *String);
+void Serial_Printf(char *format, ...);
 
 /* USER CODE END Prototypes */
 
