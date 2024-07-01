@@ -28,6 +28,7 @@
 #include "GUI.h"
 #include "pic.h"
 #include "test.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -83,7 +84,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  LCD_Init();
+//  LCD_Init();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -98,7 +99,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+ uint8_t txData[] = "Hello, UART!\r\n";
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,11 +108,12 @@ int main(void)
   {
     HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
     HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,GPIO_PIN_SET);
-    HAL_Delay(200);
-    main_test();
+    HAL_Delay(500);
+    // main_test();
+    HAL_UART_Transmit(&huart1, txData, sizeof(txData)-1, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
     HAL_GPIO_WritePin(LED4_GPIO_Port,LED4_Pin,GPIO_PIN_RESET);
-    HAL_Delay(200);
+    HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
