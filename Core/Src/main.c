@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -98,17 +99,26 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
+HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_3);
+HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
 
+__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 250);
+__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_2, 250);
+__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_3, 250);
+__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_4, 250);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    Serial_Printf("I am here a\r\n");
-    main_test();
-    HAL_Delay(500);
+    // Serial_Printf("I am here a\r\n");
+    // main_test();
+    // HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
