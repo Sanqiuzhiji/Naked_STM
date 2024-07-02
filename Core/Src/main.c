@@ -112,8 +112,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    L298N_SetMode("a1","right");
-    L298N_SetSpeed("a1",250);
+    GoStraight(400);
     // Serial_Printf("I am here a\r\n");
     // main_test();
     // HAL_Delay(500);
