@@ -50,7 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t rxdata;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -86,8 +86,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 //  LCD_Init();
-  L298N_Pin_Init();
-  L298N_PWM_Enable();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -104,19 +102,47 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  L298N_Pin_Init();
+  L298N_PWM_Enable();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    GoStraight(400);
-    // Serial_Printf("I am here a\r\n");
+    // Serial_Printf("I am serial\r\n");
+    // Bluetooth_SendByte(0xaa);
     // main_test();
+    // GoStraight(300);
+    // HAL_Delay(2000);
+    // GoBack(300);
+    // HAL_Delay(2000);
+    // SpinTurnRight(300);
+    // HAL_Delay(2000);
+    // SpinTurnLeft(300);
+    // HAL_Delay(2000);
+    // Serial_Printf("%x",rxdata);
+    // Serial_Printf("\r\n");
+    HAL_UART_Receive_IT(&huart3,(uint8_t *)&rxdata,1);   
+    HAL_UART_Receive_IT(&huart1,(uint8_t *)&rxdata,1);   
+    Bluetooth_SendByte(rxdata);
+    Serial_SendByte(rxdata);
+    if(rxdata==1) GoStraight(350);
+    else if(rxdata==2) SpinTurnLeft(350);
+    else if(rxdata==3) SpinTurnRight(350);
+    else if(rxdata==4) GoBack(350);
+    else if(rxdata==5) 
+    {
+     L298N_SetMode("a1", "stop");
+     L298N_SetMode("a2", "stop");
+     L298N_SetMode("b1", "stop");
+     L298N_SetMode("b2", "stop");
+
+    }
     // HAL_Delay(500);
-    /* USER CODE END WHILE */
+   /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }

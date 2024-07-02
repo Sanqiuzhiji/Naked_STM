@@ -6,8 +6,8 @@
 
 void L298N_Pin_Init(void);
 void L298N_PWM_Enable(void);
-void L298N_SetSpeed(char Motorname[], uint16_t Speed);
-void L298N_SetMode(char Motorname[], char Modename[]);
+void L298N_SetMode(const char* Motorname, const char* Modename);
+void L298N_SetSpeed(const char* Motorname, uint16_t Speed);
 void GoStraight(uint16_t Speed);
 void GoBack(uint16_t Speed);
 void SpinTurnRight(uint16_t Speed);
