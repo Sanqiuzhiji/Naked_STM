@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "stdlib.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -73,8 +73,32 @@ void Error_Handler(void);
 #define TFT_MOSI_GPIO_Port GPIOA
 #define LED3_Pin GPIO_PIN_15
 #define LED3_GPIO_Port GPIOA
+#define L298NA_A11_Pin GPIO_PIN_0
+#define L298NA_A11_GPIO_Port GPIOD
+#define L298NA_A12_Pin GPIO_PIN_1
+#define L298NA_A12_GPIO_Port GPIOD
+#define L298NA_A21_Pin GPIO_PIN_2
+#define L298NA_A21_GPIO_Port GPIOD
+#define L298NA_A22_Pin GPIO_PIN_3
+#define L298NA_A22_GPIO_Port GPIOD
+#define L298NA_B11_Pin GPIO_PIN_4
+#define L298NA_B11_GPIO_Port GPIOD
+#define L298NA_B12_Pin GPIO_PIN_5
+#define L298NA_B12_GPIO_Port GPIOD
+#define L298NA_B21_Pin GPIO_PIN_6
+#define L298NA_B21_GPIO_Port GPIOD
+#define L298NA_B22_Pin GPIO_PIN_7
+#define L298NA_B22_GPIO_Port GPIOD
+#define L298N_A1_Pin GPIO_PIN_3
+#define L298N_A1_GPIO_Port GPIOB
 #define LED4_Pin GPIO_PIN_4
 #define LED4_GPIO_Port GPIOB
+#define L298N_A2_Pin GPIO_PIN_5
+#define L298N_A2_GPIO_Port GPIOB
+#define L298N_B1_Pin GPIO_PIN_7
+#define L298N_B1_GPIO_Port GPIOB
+#define L298N_B2_Pin GPIO_PIN_9
+#define L298N_B2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

@@ -29,7 +29,7 @@
 #include "GUI.h"
 #include "pic.h"
 #include "test.h"
-
+#include "L298N.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,6 +86,8 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 //  LCD_Init();
+  L298N_Pin_Init();
+  L298N_PWM_Enable();
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -100,22 +102,18 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
-HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_3);
-HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_4);
 
-__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 250);
-__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_2, 250);
-__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_3, 250);
-__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_4, 250);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    L298N_SetMode("a1","right");
+    L298N_SetSpeed("a1",250);
     // Serial_Printf("I am here a\r\n");
     // main_test();
     // HAL_Delay(500);
