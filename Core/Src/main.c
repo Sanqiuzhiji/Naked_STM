@@ -25,10 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lcd.h"
-#include "GUI.h"
-#include "pic.h"
-#include "test.h"
+
 #include "L298N.h"
 /* USER CODE END Includes */
 
@@ -142,7 +139,7 @@ int main(void)
 
     }
     // HAL_Delay(500);
-   /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
