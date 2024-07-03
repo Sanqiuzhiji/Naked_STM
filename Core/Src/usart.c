@@ -32,6 +32,9 @@ UART_HandleTypeDef huart3;
 
 /* USER CODE END 0 */
 
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart3;
+
 /* USART1 init function */
 
 void MX_USART1_UART_Init(void)
