@@ -31,12 +31,20 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Oled.h"
+#include "L298N.h"
+#include "NRF24l01.h"
+#include "i2c.h"
+#include "spi.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
 
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+#define TEST_WHILE 1
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -71,18 +79,18 @@ void Error_Handler(void);
 #define B1_Encoding1_GPIO_Port GPIOA
 #define B1_Encoding2_Pin GPIO_PIN_1
 #define B1_Encoding2_GPIO_Port GPIOA
-#define NRF_CSN_Pin GPIO_PIN_4
-#define NRF_CSN_GPIO_Port GPIOA
+#define CSN_24L01_Pin GPIO_PIN_4
+#define CSN_24L01_GPIO_Port GPIOA
 #define NRF_SCK_Pin GPIO_PIN_5
 #define NRF_SCK_GPIO_Port GPIOA
 #define NRF_MISO_Pin GPIO_PIN_6
 #define NRF_MISO_GPIO_Port GPIOA
 #define NRF_MOSI_Pin GPIO_PIN_7
 #define NRF_MOSI_GPIO_Port GPIOA
-#define NRF_CE_Pin GPIO_PIN_0
-#define NRF_CE_GPIO_Port GPIOB
-#define NRF_IQR_Pin GPIO_PIN_1
-#define NRF_IQR_GPIO_Port GPIOB
+#define CE_24L01_Pin GPIO_PIN_0
+#define CE_24L01_GPIO_Port GPIOB
+#define IRQ_24L01_Pin GPIO_PIN_1
+#define IRQ_24L01_GPIO_Port GPIOB
 #define A2_Encoding2_Pin GPIO_PIN_9
 #define A2_Encoding2_GPIO_Port GPIOE
 #define A2_Encoding1_Pin GPIO_PIN_11
@@ -117,10 +125,6 @@ void Error_Handler(void);
 #define A1_Encoding1_GPIO_Port GPIOB
 #define A1_Encoding2_Pin GPIO_PIN_5
 #define A1_Encoding2_GPIO_Port GPIOB
-#define OLED_SCL_Pin GPIO_PIN_6
-#define OLED_SCL_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_7
-#define OLED_SDA_GPIO_Port GPIOB
 #define INA21_Pin GPIO_PIN_1
 #define INA21_GPIO_Port GPIOE
 
