@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Oled.h"
 #include "L298N.h"
 /* USER CODE END Includes */
 
@@ -82,7 +82,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-//  LCD_Init();
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -100,9 +100,23 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_USART3_UART_Init();
+  MX_USART6_UART_Init();
+  MX_TIM15_Init();
+  MX_TIM1_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   L298N_Pin_Init();
   L298N_PWM_Enable();
+
+  /*OLED初始化*/
+	OLED_Init();
+
+	OLED_ShowHexNum(10, 5,0Xaa,4,OLED_6X8);
+	OLED_ShowHexNum(10, 50,0Xaa,4,OLED_6X8);
+
+	/*调用OLED_Update函数，将OLED显存数组的内容更新到OLED硬件进行显示*/
+	OLED_Update();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,22 +136,22 @@ int main(void)
     // HAL_Delay(2000);
     // Serial_Printf("%x",rxdata);
     // Serial_Printf("\r\n");
-    HAL_UART_Receive_IT(&huart3,(uint8_t *)&rxdata,1);   
-    HAL_UART_Receive_IT(&huart1,(uint8_t *)&rxdata,1);   
-    Bluetooth_SendByte(rxdata);
-    Serial_SendByte(rxdata);
-    if(rxdata==1) GoStraight(350);
-    else if(rxdata==2) SpinTurnLeft(350);
-    else if(rxdata==3) SpinTurnRight(350);
-    else if(rxdata==4) GoBack(350);
-    else if(rxdata==5) 
-    {
-     L298N_SetMode("a1", "stop");
-     L298N_SetMode("a2", "stop");
-     L298N_SetMode("b1", "stop");
-     L298N_SetMode("b2", "stop");
+    // HAL_UART_Receive_IT(&huart6,(uint8_t *)&rxdata,1);   
+    // HAL_UART_Receive_IT(&huart1,(uint8_t *)&rxdata,1);   
+    // Videographyhead_SendByte(rxdata);
+    // Serial_SendByte(rxdata);
+    // if(rxdata==1) GoStraight(350);
+    // else if(rxdata==2) SpinTurnLeft(350);
+    // else if(rxdata==3) SpinTurnRight(350);
+    // else if(rxdata==4) GoBack(350);
+    // else if(rxdata==5) 
+    // {
+    //  L298N_SetMode("a1", "stop");
+    //  L298N_SetMode("a2", "stop");
+    //  L298N_SetMode("b1", "stop");
+    //  L298N_SetMode("b2", "stop");
 
-    }
+    // }
     // HAL_Delay(500);
     /* USER CODE END WHILE */
 

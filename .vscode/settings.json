@@ -7,6 +7,7 @@
         "touch.h": "c",
         "stm32h7xx_hal.h": "c",
         "test.h": "c",
-        "l298n.h": "c"
+        "l298n.h": "c",
+        "oled.h": "c"
     }
 }

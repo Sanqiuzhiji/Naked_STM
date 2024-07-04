@@ -36,12 +36,15 @@ extern UART_HandleTypeDef huart1;
 
 extern UART_HandleTypeDef huart3;
 
+extern UART_HandleTypeDef huart6;
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);
 void MX_USART3_UART_Init(void);
+void MX_USART6_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -53,6 +56,10 @@ void Bluetooth_SendByte(uint8_t Byte);
 void Bluetooth_SendArray(uint8_t *Array);
 void Bluetooth_SendString(char *String);
 void Bluetooth_Printf(char *format, ...);
+void Videographyhead_SendByte(uint8_t Byte);
+void Videographyhead_SendArray(uint8_t *Array);
+void Videographyhead_SendString(char *String);
+void Videographyhead_Printf(char *format, ...);
 
 /* USER CODE END Prototypes */
 
