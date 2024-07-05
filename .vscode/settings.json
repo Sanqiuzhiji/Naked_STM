@@ -10,6 +10,8 @@
         "l298n.h": "c",
         "oled.h": "c",
         "nrf24l01.h": "c",
-        "stm32h7xx_hal_conf.h": "c"
+        "stm32h7xx_hal_conf.h": "c",
+        "stdio.h": "c",
+        "pid2motor.h": "c"
     }
 }

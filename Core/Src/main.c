@@ -48,9 +48,7 @@
 
 /* USER CODE BEGIN PV */
 uint8_t rxdata;
-unsigned char tmp_buf[32] = {0};
-unsigned char tmp_buf2[32] = {0};
-unsigned char temp;
+uint8_t serial_rxdata;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -108,21 +106,54 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM5_Init();
   MX_I2C1_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
-  // L298N_Pin_Init();
-  // L298N_PWM_Enable();
   // OLED_Test();
+  // uint8_t Buf[32] = {4, 0xAF, 0X00, 0X00, 0XFA};
+  // NRF24L01_Init(); // 此初始化不了，则程序停止
+  // NRF24L01_TX_Mode(TX_ADDRESSChen);
+  // HAL_Delay(500);
+  // NRF24L01_SendBuf(Buf);
+  // Serial_Printf("Cisok\r\n");
+  // Buf[2]++;
+  // NRF24L01_TX_Mode(TX_ADDRESSJia);
+  // HAL_Delay(500);
+  // NRF24L01_SendBuf(Buf);
+  // Serial_Printf("Jisok\r\n");
+  // Buf[2]++;
+  // NRF24L01_TX_Mode(TX_ADDRESSTang);
+  // HAL_Delay(500);
+  // NRF24L01_SendBuf(Buf);
+  // Serial_Printf("Tisok\r\n");
+  HAL_TIM_Base_Start_IT(&htim6);                // 开启10ms中断
+  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_1); // 开启编码器定时器
+  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_2); // 开启编码器定时器
+  __HAL_TIM_ENABLE_IT(&htim2, TIM_IT_UPDATE);   // 开启编码器定时器更新中断,防溢出处理
+  __HAL_TIM_SET_COUNTER(&htim2, 30000);         // 将编码器定时器初始值设定为30000
 
-  NRF24L01_Init(); // 此初始化不了，则程序停止
-  NRF24L01_RX_Mode();
-  NRF24L01_Test(RX_Mode);
+  motor[0].encodingTIM_HandleTypeDef = htim3;
+  motor[0].pwmTIM_HandleTypeDef = htim4;
+  motor[0].pwmTIM_CHANNEL = TIM_CHANNEL_1;
+  motor[0].targetSpeed=2.5;
+  motor[0].pid.output=0;
+  Motor_Init(motor[0]);
+  L298N_SetSpeed("a1", 200);
+
+  PID_Init(&motor[0].pid, 10, 0.0, 0.0, 0, 250);
+  L298N_SetMode("a1", "right");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    //  L298N_SetMode("a1", "right");
+    // HAL_Delay(5000);
+    // L298N_SetMode("a1", "left");
+    // HAL_Delay(5000);
+    // L298N_SetMode("a1", "stop");
+    // HAL_Delay(5000);
     // Serial_Printf("I am serial\r\n");
     // Bluetooth_SendByte(0xaa);
     // GoStraight(300);
@@ -136,7 +167,7 @@ int main(void)
     // Serial_Printf("%x",rxdata);
     // Serial_Printf("\r\n");
     // HAL_UART_Receive_IT(&huart6,(uint8_t *)&rxdata,1);
-    // HAL_UART_Receive_IT(&huart1,(uint8_t *)&rxdata,1);
+    // HAL_UART_Receive_IT(&huart1,(uint8_t *)&serial_rxdata,1);
     // Videographyhead_SendByte(rxdata);
     // Serial_SendByte(rxdata);
     // if(rxdata==1) GoStraight(350);
@@ -149,9 +180,7 @@ int main(void)
     //  L298N_SetMode("a2", "stop");
     //  L298N_SetMode("b1", "stop");
     //  L298N_SetMode("b2", "stop");
-
     // }
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -227,6 +256,30 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+// 中断处理函数
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim->Instance == htim6.Instance) // 100ms中断
+  {
+    int16_t pluse = COUNTERNUM(motor[0]) - RELOADVALUE(motor[0]) / 2; // 从开始到现在当前10ms的总脉冲数
+    motor[0].totalAngle = pluse;
+    // 进行速度计算,根据前文所说的,4倍频,编码器13位,减速比30,再乘以100即为每秒钟输出轴多少转
+    // motor.totalAngle - motor.lastAngle为当前100ms内的增量，即脉冲数
+    motor[0].speed = (float)(motor[0].totalAngle - motor[0].lastAngle) / (4 * 16 * RR) * 10;
+    motor[0].lastAngle = motor[0].totalAngle; // 更新转过的圈数
+    Motor_Send(motor[0]);
+    Serial_Printf("%f\r\n", motor[0].speed);
+  }
+  // 如果是编码器更新中断,即10ms内,脉冲数超过了计数范围,需要进行处理
+  else if (htim->Instance == motor[0].encodingTIM_HandleTypeDef.Instance)
+  {
+    // if (COUNTERNUM(motor[0]) > 10000)
+    //   motor[0].loopNum++; // 向上计数超过10000，正溢出+1
+    // else if (COUNTERNUM(motor[0]) < 10000)
+    //   motor[0].loopNum--;                                             // 向下计数小于0，负溢出+1
+    // __HAL_TIM_SetCounter(&motor[0].encodingTIM_HandleTypeDef, 30000); // 重新设定初始值
+  }
+}
 /* USER CODE END 4 */
 
 /* MPU Configuration */

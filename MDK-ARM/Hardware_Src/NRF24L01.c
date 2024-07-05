@@ -3,8 +3,10 @@
 #include "spi.h"
 #include "stdio.h"
 
-const uint8_t TX_ADDRESS[TX_ADR_WIDTH]={0x11, 0x22, 0x33, 0x44, 0x55}; 
-const uint8_t RX_ADDRESS[RX_ADR_WIDTH]={0x11, 0x22, 0x33, 0x44, 0x55};
+ uint8_t TX_ADDRESSChen[TX_ADR_WIDTH]={0xB3, 0xC2, 0x00, 0x00, 0x00}; 
+ uint8_t TX_ADDRESSJia[TX_ADR_WIDTH]={0xBC, 0xD6, 0x00, 0x00, 0x00}; 
+ uint8_t TX_ADDRESSTang[TX_ADR_WIDTH]={0xCC, 0xC6, 0x00, 0x00, 0x00}; 
+ uint8_t RX_ADDRESS[RX_ADR_WIDTH]={0x11, 0x22, 0x33, 0x44, 0x55};
 
 //NRF24L01 驱动函数
 #define debug_out(fmt,args...)  Serial_Printf(fmt,##args)
@@ -139,7 +141,7 @@ uint8_t NRF24L01_Check(void)
 }			
 
 // 通过接收通道0来接收应答
-void NRF24L01_TX_Mode(void)
+void NRF24L01_TX_Mode( uint8_t *TX_ADDRESS)
 {														 
 	Clr_NRF24L01_CE;	    
   	NRF24L01_Write_Buf(nRF_WRITE_REG+TX_ADDR,(uint8_t*)TX_ADDRESS,TX_ADR_WIDTH);//写TX节点地址 
@@ -198,27 +200,4 @@ void NRF24L01_SendBuf(uint8_t *Buf)
 uint8_t NRF24L01_Get_Value_Flag(void)
 {
 	return !READ_NRF24L01_IRQ;
-}
-void NRF24L01_Test(uint8_t mode)
-{
-	if(mode==0x11)
-	{
-		do
-		{	 
-			uint8_t Buf[32]={3,0xAF,0X00,0X00,0XFA};
-			NRF24L01_SendBuf(Buf);
-			Serial_SendByte(0xaa);	 
-		}while(TEST_WHILE);
-	}
-	else if(mode==0x22)
-	{
-	  uint8_t Buf[32] = {0};
-	do{
-	    if (NRF24L01_Get_Value_Flag())	
-		{
-			NRF24L01_GetRxBuf(Buf);
-			Serial_SendArray(Buf);
-		}
-	  }while (TEST_WHILE);
-	}
 }

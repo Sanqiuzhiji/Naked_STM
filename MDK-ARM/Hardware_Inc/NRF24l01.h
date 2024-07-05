@@ -60,8 +60,8 @@
 #define RX_ADR_WIDTH    5     //5字节地址宽度
 #define TX_PLOAD_WIDTH  32    //32字节有效数据宽度
 #define RX_PLOAD_WIDTH  32    //32字节有效数据宽度
-#define TX_Mode	0x11
-#define RX_Mode	0x22
+#define TX_Mode	0x00
+#define RX_Mode	0x01
 //引脚操作
 #define W_SS(BitValue)	GPIO_WriteBit(CSN_Port, CSN_Pin, (BitAction)BitValue)
 #define W_CE(BitValue)	GPIO_WriteBit(CE_Port, CE_Pin, (BitAction)BitValue)
@@ -81,6 +81,11 @@
 //NRF2401_IRQ数据输入
 #define READ_NRF24L01_IRQ   HAL_GPIO_ReadPin(IRQ_24L01_GPIO_Port, IRQ_24L01_Pin)
 
+extern uint8_t  TX_ADDRESSChen[TX_ADR_WIDTH]; 
+extern uint8_t  TX_ADDRESSJia[TX_ADR_WIDTH]; 
+extern uint8_t  TX_ADDRESSTang[TX_ADR_WIDTH]; 
+extern uint8_t  RX_ADDRESS[RX_ADR_WIDTH];
+
 void NRF24L01_Init(void);                                //NRF24l01初始化
 unsigned char NRF24L01_Write_Buf(unsigned char regaddr, unsigned char *pBuf, unsigned char datalen); //写数据区
 unsigned char NRF24L01_Read_Buf(unsigned char regaddr, unsigned char *pBuf, unsigned char datalen);  //读数据区
@@ -90,10 +95,9 @@ uint8_t NRF24L01_GetRxBuf(uint8_t *rxbuf);
 uint8_t NRF24L01_SendTxBuf(uint8_t *txbuf);
 uint8_t NRF24L01_Check(void);
 void NRF24L01_RX_Mode(void);
-void NRF24L01_TX_Mode(void);
+void NRF24L01_TX_Mode( uint8_t *TX_ADDRESS);
 void NRF24L01_SendBuf(uint8_t *Buf);
 uint8_t NRF24L01_Get_Value_Flag(void);
-void NRF24L01_Test(uint8_t mode);
 
 #endif
 

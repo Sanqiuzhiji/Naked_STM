@@ -31,15 +31,16 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Oled.h"
-#include "L298N.h"
-#include "NRF24l01.h"
 #include "i2c.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
+#include "Oled.h"
+#include "L298N.h"
+#include "NRF24l01.h"
+#include"PID2Motor.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
